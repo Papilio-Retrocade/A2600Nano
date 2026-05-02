@@ -39,10 +39,14 @@ The ESP32-S3 SuperMini runs FPGA-Companion firmware to handle USB HID devices, S
 
 ### Download FPGA-Companion Firmware
 
-**Repository:** https://github.com/harbaum/FPGA-Companion
+**Repository:** https://github.com/GadgetFactory/FPGA-Companion (GadgetFactory fork with flash loading support)
+**Upstream:** https://github.com/harbaum/FPGA-Companion
+**Target:** ESP32-S2/S3
+
+**Key Enhancement:** The GadgetFactory fork adds the ability to load FPGA bitfiles to flash from the `/cores/` directory on the SD card, allowing easy core switching without rebuilding.
 
 **Pre-built firmware:**
-1. Go to https://github.com/harbaum/FPGA-Companion/releases
+1. Go to https://github.com/GadgetFactory/FPGA-Companion/releases
 2. Download latest `firmware.bin` for ESP32-S3
 3. **OR** download MiSTeryNano firmware: https://github.com/harbaum/MiSTeryNano/tree/main/firmware/misterynano_fw
 
@@ -398,7 +402,8 @@ To modify the core:
 ### ESP32 Firmware Customization
 
 FPGA-Companion firmware source:
-- https://github.com/harbaum/FPGA-Companion
+- GadgetFactory fork: https://github.com/GadgetFactory/FPGA-Companion (with flash loading)
+- Upstream: https://github.com/harbaum/FPGA-Companion
 - Build using PlatformIO or Arduino IDE
 - Customize USB HID mappings, OSD menu, file browser
 
@@ -450,7 +455,8 @@ A2600Nano uses the MiSTeryNano SPI protocol for FPGA ↔ ESP32 communication:
 
 - **A2600Nano (MiSTle-Dev):** https://github.com/MiSTle-Dev/A2600Nano
 - **MiSTeryNano (Till Harbaum):** https://github.com/harbaum/MiSTeryNano
-- **FPGA-Companion:** https://github.com/harbaum/FPGA-Companion
+- **FPGA-Companion (GadgetFactory):** https://github.com/GadgetFactory/FPGA-Companion (fork with flash loading)
+- **FPGA-Companion (upstream):** https://github.com/harbaum/FPGA-Companion
 - **Original A2600 core (Retromaster):** https://retromaster.wordpress.com/a2601/
 
 ### Papilio Retrocade
@@ -474,7 +480,9 @@ A2600Nano uses the MiSTeryNano SPI protocol for FPGA ↔ ESP32 communication:
 1. Check this README troubleshooting section
 2. Review Papilio Retrocade documentation
 3. Check upstream A2600Nano issues: https://github.com/MiSTle-Dev/A2600Nano/issues
-4. Check FPGA-Companion issues: https://github.com/harbaum/FPGA-Companion/issues
+4. Check FPGA-Companion issues:
+   - GadgetFactory fork: https://github.com/GadgetFactory/FPGA-Companion/issues
+   - Upstream: https://github.com/harbaum/FPGA-Companion/issues
 
 ### Reporting Issues
 
