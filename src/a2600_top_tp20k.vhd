@@ -35,13 +35,13 @@ entity A2600_top is
     mspi_cs     : out std_logic;
     mspi_clk    : out std_logic;
     mspi_do     : in std_logic;
-    mspi_di     : out std_logic
+    mspi_di     : out std_logic;
 
     -- Gamepad Dualshock P1
---    ds_clk          : out std_logic;
---    ds_mosi         : out std_logic;
---    ds_miso         : in std_logic;
---    ds_cs           : out std_logic;
+    ds_clk          : out std_logic;
+    ds_mosi         : out std_logic;
+    ds_miso         : in std_logic;
+    ds_cs           : out std_logic
     -- Gamepad DualShock P2
 --    ds2_clk       : out std_logic;
 --    ds2_mosi      : out std_logic;
@@ -331,39 +331,39 @@ begin
 -- https://store.curiousinventor.com/guides/PS2/
 -- https://hackaday.io/project/170365-blueretro/log/186471-playstation-playstation-2-spi-interface
 
---gamepad_p1: entity work.dualshock2
---    port map (
---    clk           => clk,
---    rst           => system_reset(0) and not pll_locked,
---    vsync         => vsync,
---    ds2_dat       => ds_miso,
---    ds2_cmd       => ds_mosi,
---    ds2_att       => ds_cs,
---    ds2_clk       => ds_clk,
---    ds2_ack       => '0',
---    stick_lx      => paddle_1,
---    stick_ly      => paddle_2,
---    stick_rx      => open,
---    stick_ry      => open,
---    key_up        => key_up,
---    key_down      => key_down,
---    key_left      => key_left,
---    key_right     => key_right,
---    key_l1        => key_l1,
---    key_l2        => key_l2,
---    key_r1        => key_r1,
---    key_r2        => key_r2,
---    key_triangle  => key_triangle,
---    key_square    => key_square,
---    key_circle    => key_circle,
---    key_cross     => key_cross,
---    key_start     => key_start,
---    key_select    => key_select,
---    key_lstick    => key_lstick,
---    key_rstick    => key_rstick,
---    debug1        => open,
---    debug2        => open
---    );
+gamepad_p1: entity work.dualshock2
+    port map (
+    clk           => clk,
+    rst           => system_reset(0) and not pll_locked,
+    vsync         => vsync,
+    ds2_dat       => ds_miso,
+    ds2_cmd       => ds_mosi,
+    ds2_att       => ds_cs,
+    ds2_clk       => ds_clk,
+    ds2_ack       => '0',
+    stick_lx      => paddle_1,
+    stick_ly      => paddle_2,
+    stick_rx      => open,
+    stick_ry      => open,
+    key_up        => key_up,
+    key_down      => key_down,
+    key_left      => key_left,
+    key_right     => key_right,
+    key_l1        => key_l1,
+    key_l2        => key_l2,
+    key_r1        => key_r1,
+    key_r2        => key_r2,
+    key_triangle  => key_triangle,
+    key_square    => key_square,
+    key_circle    => key_circle,
+    key_cross     => key_cross,
+    key_start     => key_start,
+    key_select    => key_select,
+    key_lstick    => key_lstick,
+    key_rstick    => key_rstick,
+    debug1        => open,
+    debug2        => open
+    );
 
 --gamepad_p2: entity work.dualshock2
 --    port map (
