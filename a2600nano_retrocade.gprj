@@ -50,4 +50,14 @@
         <File path="src/a2600_top_retrocade.cst" type="file.cst" enable="1"/>
         <File path="src/a2600_top_retrocade.sdc" type="file.sdc" enable="1"/>
     </FileList>
+    <Options>
+        <Option name="output_file" value="a2600nano_retrocade"/>
+        <Option name="verilog_language" value="sysv-2017"/>
+        <Option name="vhdl_language" value="vhdl-2008"/>
+        <Option name="top_module" value="A2600_top"/>
+        <Option name="use_mspi_as_gpio" value="1"/>
+        <Option name="use_sspi_as_gpio" value="1"/>
+        <Option name="use_ready_as_gpio" value="0"/>
+        <Option name="use_done_as_gpio" value="0"/>
+    </Options>
 </Project>
