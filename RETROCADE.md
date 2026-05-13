@@ -4,6 +4,21 @@ Complete setup guide for running A2600Nano (Atari 2600 VCS) on the Papilio Retro
 
 ---
 
+## ⚠️ Important: Use the Stable Branch
+
+**Recommended Branch:** `retrocade_spi_flash`
+
+This branch contains the tested and stable configuration with working dual-purpose pin settings. The `retrocade` branch attempted to disable SPI flash functionality but was unsuccessful and should not be used.
+
+**Git Commands:**
+```bash
+git clone https://github.com/Papilio-Retrocade/A2600Nano.git
+cd A2600Nano
+git checkout retrocade_spi_flash
+```
+
+---
+
 ## Hardware Requirements
 
 ### Required Components
@@ -25,8 +40,10 @@ Complete setup guide for running A2600Nano (Atari 2600 VCS) on the Papilio Retro
 
 ## Quick Start Checklist
 
+- [ ] Checkout `retrocade_spi_flash` branch
+- [ ] Configure dual-purpose pins (SSPI and MSPI as regular IO)
 - [ ] Flash FPGA-Companion firmware to ESP32-S3
-- [ ] Build and program A2600Nano bitstream to FPGA
+- [ ] Build and program A2600Nano bitstream to FPGA (hold BOOT during power-on)
 - [ ] Format SD card as FAT32
 - [ ] Copy ROM files to SD card
 - [ ] Power on and test
@@ -97,13 +114,19 @@ After flashing:
 
 1. Open Gowin FPGA Designer
 2. **File → Open Project** → Select `a2600nano_tp20k.gprj`
-3. Verify project settings:
+3. **⚠️ IMPORTANT:** Configure dual-purpose pins:
+   - **Project → Configuration → Dual-Purpose Pins**
+   - Check ✅ **Use SSPI as regular IO**
+   - Check ✅ **Use MSPI as regular IO**
+   - Leave all other options unchecked
+   - Click **OK** to save
+4. Verify project settings:
    - Device: **GW2A-LV18PG256C8/I7**
    - Package: **PBGA256**
    - Speed: **C8/I7**
-4. **Process → Run All** (Synthesize + Place & Route)
-5. Wait for completion (~5-10 minutes)
-6. Output: `impl/pnr/a2600nano_tp20k.fs` bitstream file
+5. **Process → Run All** (Synthesize + Place & Route)
+6. Wait for completion (~5-10 minutes)
+7. Output: `impl/pnr/a2600nano_tp20k.fs` bitstream file
 
 #### Option B: Command Line (TCL Script)
 
@@ -128,10 +151,46 @@ Open `impl/pnr/a2600nano_tp20k.rpt.html` to review full report.
 
 ## Step 3: Program FPGA
 
+### CRITICAL: Dual-Purpose Pin Configuration
+
+⚠️ **IMPORTANT:** The FPGA must be configured with specific dual-purpose pin settings for successful programming with the ESP32-S3 SuperMini.
+
+**In Gowin FPGA Designer, configure dual-purpose pins as follows:**
+
+Before building/programming, open **Project → Configuration → Dual-Purpose Pins** and set:
+
+- ✅ **Use SSPI as regular IO** - CHECKED
+- ✅ **Use MSPI as regular IO** - CHECKED  
+- ☐ Use JTAG as regular IO - UNCHECKED
+- ☐ Use READY as regular IO - UNCHECKED
+- ☐ Use DONE as regular IO - UNCHECKED
+- ☐ Use RECONFIG_N as regular IO - UNCHECKED
+- ☐ Use I2C as regular IO - UNCHECKED
+
+**Why this matters:** Setting SSPI and MSPI as regular IO allows the FPGA to be programmed reliably when the ESP32-S3 is connected. Without these settings, programming may fail or be unreliable.
+
+**Note:** This configuration is already set correctly in the `retrocade_spi_flash` branch and should be used as the stable baseline.
+
+---
+
+### Programming Procedure with Boot Pin Method
+
+Due to the dual-purpose pin configuration, programming requires a special procedure:
+
+**Required Steps:**
+1. **Hold down the BOOT button** on the ESP32-S3 SuperMini
+2. **While holding BOOT**, connect USB-C power to the Retrocade board
+3. **Release BOOT** after power is applied
+4. Proceed with programming using esptool or Papilio Loader
+
+This puts the ESP32-S3 into bootloader mode and allows the FPGA programming signals to function correctly.
+
+---
+
 ### Using Gowin Programmer
 
 1. Connect USB-C cable to Retrocade board
-2. Power on board
+2. **Hold BOOT button and power on board** (see procedure above)
 3. Open **Gowin Programmer**
 4. Click **Scan Device** or **Cable Setup**
    - Select **Embedded USB JTAG**
@@ -145,11 +204,52 @@ Open `impl/pnr/a2600nano_tp20k.rpt.html` to review full report.
 8. Wait for completion (~30-60 seconds)
 9. **Status: Success** should appear
 
+### Alternative: Using Papilio Loader
+
+Papilio Loader can also be used to program the FPGA:
+
+```powershell
+# Using Papilio Loader command line
+papilio-prog -f impl/pnr/a2600nano_tp20k.fs -v
+```
+
+**Remember:** Hold BOOT button while powering on before running this command.
+
+### Alternative: Using esptool
+
+For low-level programming via esptool:
+
+```powershell
+# Flash FPGA bitstream to SPI flash via ESP32
+esptool.py --chip esp32s3 --port COM3 --baud 921600 write_flash 0x200000 impl/pnr/a2600nano_tp20k.fs
+```
+
+**Remember:** Hold BOOT button while powering on before running this command.
+
 ### Verify Programming
 
 - HDMI output should show A2600Nano boot screen or menu
 - If blank screen, check HDMI cable and display compatibility
 - ESP32 serial output should show SPI communication with FPGA
+
+### Troubleshooting Programming Issues
+
+**Problem:** Programming fails or FPGA not detected
+
+**Solutions:**
+- ✅ Verify dual-purpose pins set correctly (SSPI and MSPI as regular IO)
+- ✅ Hold BOOT button during power-on
+- ✅ Try different USB cable or port
+- ✅ Use slower baud rate (460800 instead of 921600)
+- ✅ Power cycle and retry
+
+**Problem:** FPGA programs but doesn't run correctly
+
+**Solutions:**
+- Verify bitstream built from `retrocade_spi_flash` branch
+- Check HDMI cable connection
+- Verify SD card formatted correctly and inserted
+- Check ESP32 firmware is running (LED blinks)
 
 ---
 
