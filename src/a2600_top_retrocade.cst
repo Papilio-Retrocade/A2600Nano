@@ -1,3 +1,21 @@
+//=============================================================================
+// Papilio Retrocade Constraint File
+// A2600Nano Core - Atari 2600 VCS Implementation
+//
+// Hardware: Papilio Retrocade v1.3/v1.4
+//           - Tang Nano 20K (GW2A-LV18PG256C8/I7)
+//           - ESP32-S3 SuperMini
+//           - Retrocade daughterboard
+//
+// CRITICAL: Dual-Purpose Pins Configuration
+//           In Gowin FPGA Designer: Project → Configuration → Dual-Purpose Pins
+//           ✅ Use SSPI as regular IO - CHECKED
+//           ✅ Use MSPI as regular IO - CHECKED
+//           ☐ All others - UNCHECKED
+//
+// Programming: Hold BOOT button on ESP32 during power-on to program
+//=============================================================================
+
 //=========== HDMI =============== - Dock
 //IO_LOC "tmds_d_p[0]" H14,H16;
 //IO_PORT "tmds_d_p[0]" IO_TYPE=LVCMOS33D PULL_MODE=NONE DRIVE=4 BANK_VCCIO=3.3;

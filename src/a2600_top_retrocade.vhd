@@ -1,7 +1,17 @@
 -------------------------------------------------------------------------
---  A2600 Top level for Tang Primer 20k
---  2024 Stefan Voss
+--  A2600 Top level for Papilio Retrocade
+--  2024-2026 Stefan Voss, Papilio Labs
 --  based on the work of many others
+--
+--  Hardware: Papilio Retrocade board
+--            - Tang Nano 20K module (GW2A-LV18PG256C8/I7)
+--            - ESP32-S3 SuperMini companion controller
+--            - Retrocade daughterboard (HDMI, SD, WS2812B RGB LED)
+--
+--  CRITICAL: Dual-purpose pins must be configured:
+--            - SSPI as regular IO (checked)
+--            - MSPI as regular IO (checked)
+--            This allows programming when ESP32 is connected
 --
 -------------------------------------------------------------------------
 library IEEE;
