@@ -12,6 +12,7 @@ The A2600Nano is a port of the [MiSTer](https://github.com/MiSTer-devel/Atari260
 | [Tang Mega 138k Pro](https://wiki.sipeed.com/hardware/en/tang/tang-mega-138k/mega-138k-pro.html)|[GW5AST-138](https://www.gowinsemi.com/en/product/detail/60/) | HDMI / LCD |twin Dualshock |
 | [Tang Console 60K NEO](https://wiki.sipeed.com/hardware/en/tang/tang-console/mega-console.html)|[GW5AT-60](https://www.gowinsemi.com/en/product/detail/60/) | HDMI / LCD |twin Dualshock, no Retro D9 Joystick|
 | [Tang Console 138K NEO](https://wiki.sipeed.com/hardware/en/tang/tang-console/mega-console.html)|[GW5AST-138](https://www.gowinsemi.com/en/product/detail/60/)|HDMI / LCD |twin Dualshock, no Retro D9 Joystick|
+| [Papilio Retrocade](https://github.com/Papilio-Labs/papilio_retrocade_hardware)| [GW2A-LV18PG256C8/I7](https://www.gowinsemi.com/en/product/detail/46/)| HDMI |Dualshock, SD card, WS2812B RGB LED|
 
 This project relies on a µC being connected to the FPGA. --> [MiSTle-Dev wiki](https://github.com/MiSTle-Dev/.github/wiki) <--  
 
@@ -54,6 +55,10 @@ See [Tang Primer 20K](TANG_PRIMER_20K.md)
 ## A2600Nano on Tang Primer 25K
 
 See [Tang Primer 25K](TANG_PRIMER_25K.md)
+
+## A2600Nano on Papilio Retrocade
+
+See [Papilio Retrocade](RETROCADE.md)
 
 ## A2600Nano on Tang Mega 60k NEO
 
